@@ -7,25 +7,28 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    float gravity = -60.0f;
-
+    [Header("Camera Settings")]
+    //Public Camera Settings
     public float cameraSpeedH;
     public float cameraSpeedV;
-
+    //Private Camera Settings
+    private GameObject playerCamera;
     private float pitch = 0.0f;
     private float yaw = 0.0f;
 
-    private GameObject playerCamera;
-
-    private CharacterController controller;
+    [Header("Character Settings")]
+    //Public Character Settings
     public float playerSpeed;
     public float jumpHeight = 3f;
-
-    private Vector3 velocity;
     public Transform groundCheck;
     public float groundDistance = 0.4f;
-    private bool isGrounded = false;
     public LayerMask layer;
+    //Private Character Settings
+    private CharacterController controller;
+    private Vector3 velocity;
+    private bool isGrounded = false;
+    private float gravity = -60.0f;
+
 
     // Start is called before the first frame update
     void Start()
