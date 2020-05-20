@@ -47,11 +47,17 @@ public class PlayerController : MonoBehaviour
         CameraMovement();
         PlayerMovement();
     }
-
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(groundCheck.position, groundDistance);
+    }
     private void PlayerMovement()
     {
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, layer);
+        
+
 
         if (isGrounded && velocity.y < 0)
         {

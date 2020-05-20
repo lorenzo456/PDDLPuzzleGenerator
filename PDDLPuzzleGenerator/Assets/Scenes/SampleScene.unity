@@ -644,7 +644,7 @@ MonoBehaviour:
   playerSpeed: 0
   jumpHeight: 2
   groundCheck: {fileID: 109085501}
-  groundDistance: 0.4
+  groundDistance: 0.2
   layer:
     serializedVersion: 2
     m_Bits: 1
