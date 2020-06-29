@@ -5,7 +5,7 @@ using UnityEngine;
 public class ContentGenerator : MonoBehaviour
 {
     Room lastRoom;
-    public GameObject GetRandomObjectOfType(ObjectTypes objectType, string objectName,string subType = "")
+    public GameObject GetRandomObjectOfType(ObjectTypes objectType, string objectName,string subType = "", string parent = "")
     {
         if(objectType == ObjectTypes.Room)
         {            
@@ -34,7 +34,8 @@ public class ContentGenerator : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(temp, Vector3.zero, Quaternion.identity);
+                    
+                    Instantiate(temp, GameObject.Find(parent + "(Clone)").GetComponent<Room>().elementPlacement.position, Quaternion.identity);
                     return temp;
                 }
             }

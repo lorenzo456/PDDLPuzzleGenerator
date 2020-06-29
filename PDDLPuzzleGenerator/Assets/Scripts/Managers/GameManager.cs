@@ -17,10 +17,11 @@ public class GameManager : MonoBehaviour
     {
         foreach (Action action in actionList)
         {
-            StartCoroutine(action.actionName, action.actionParameters);
+             StartCoroutine(action.actionName, action.actionParameters);
+           // Debug.Log(action.actionName);
         }
     }
-
+    /*
     IEnumerator add_element(List<string> parameters)
     {
 
@@ -39,13 +40,49 @@ public class GameManager : MonoBehaviour
 
         yield return null;
     }
+    */
 
     IEnumerator create_room(List<string> parameters)
     {
+        string locationName = parameters[0];
+        contentGenerator.GetRandomObjectOfType(ObjectTypes.Room, locationName);
         yield return null;
     }
 
     IEnumerator set_door(List<string> parameters)
+    {
+        string locationName = parameters[0];
+        Debug.Log(locationName);
+        contentGenerator.GetRandomObjectOfType(ObjectTypes.Element, "Door", "Door", locationName);
+        yield return null;
+    }
+
+    IEnumerator set_key(List<string> parameters)
+    {
+        yield return null;
+    }
+
+    IEnumerator set_player(List<string> parameters)
+    {
+        yield return null;
+    }
+
+    IEnumerator create_obs(List<string> parameters)
+    {
+        yield return null;
+    }
+
+    IEnumerator set_meddifficulty(List<string> parameters)
+    {
+        yield return null;
+    }
+
+    IEnumerator set_harddifficulty(List<string> parameters)
+    {
+        yield return null;
+    }
+
+    IEnumerator set_easydifficulty(List<string> parameters)
     {
         yield return null;
     }

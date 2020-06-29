@@ -1,22 +1,29 @@
 (define (problem problem0)
 (:objects
-    key1 door1 -element
+    key door -element
     ;rooms
     room1 room2 room3 room4 room5 -location
+    ;obstacles
+    jump shoot grab -Obstacle
+    ;level
+    easy med hard -level
+    ;
+    player -play
+
 )
 (:init
-    (uninitialized door1)
-    (uninitialized key1)
-    
-    ;Initialize
-    (empty room1)
-    (empty room2)
+    (is jump jump)
+    (is shoot shoot)
+    (is grab grab)
 )
 (:goal
 (and
-          (not(uninitialized door1))
-          (not(uninitialized key1))
 
+          ;(initialized room1)
+          ;(at door room1)
+          (playerSet player)
+          ;(difficulty med room2)
+          ;(difficulty hard room3)
 )
 )
 )

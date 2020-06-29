@@ -3,30 +3,131 @@
         :strips :equality :typing
     )
     (:predicates
-        (at ?e -element ?l -location)
-        (uninitialized ?e -element)
-        (used ?l -location)
-        (empty ?l -location)
+        (initialized ?location -location)
+        (at ?element -element ?location -location)
+        (spawned ?obstacle -obstacle)
+        (difficulty ?difficulty -level ?location -location)
+        (is ?obstacle -obstacle ?obstacle2 -obstacle)
+        (playerSet ?player -play)
     )
-(:types element location)
+(:types element location obstacle level play)
 
-(:action add_element
-    :parameters
-        (?element1 ?element2 -element ?location -location)
+
+(:action create_Room
+    :parameters(?location -location)
     :precondition
         (and
-            (uninitialized ?element1)
-            (uninitialized ?element2)
-            (not(at ?element1 ?location))
-            (not(at ?element2 ?location))
-            (empty ?location)
+           (not (initialized ?location))
         )
     :effect
         (and
-            (at ?element1 ?location)
-            (not(uninitialized ?element1))
-            (not(empty ?location))
+           (initialized ?location)
         )
 )
+
+(:action create_obst
+    :parameters(?obstacle -obstacle)
+    :precondition
+        (and
+            (not(spawned ?obstacle))
+        )
+    :effect
+        (and
+           (spawned ?obstacle)
+        )
+)
+
+(:action set_EasyDifficulty
+    :parameters(?location -location ?obstacle1 -obstacle ?obstacle2 -obstacle)
+    :precondition
+        (and
+            (at key ?location)
+            (spawned ?obstacle1)
+            (spawned ?obstacle2)
+        )
+    :effect
+        (and
+           (difficulty easy ?location)
+        )
+)
+
+(:action set_MedDifficulty
+    :parameters(?location -location ?obstacle1 -obstacle ?obstacle2 -obstacle ?obstacle3 -obstacle)
+    :precondition
+        (and
+            (at key ?location)
+            (not (is ?obstacle1 ?obstacle2))
+            (spawned ?obstacle1)
+            (spawned ?obstacle2)
+            (spawned ?obstacle3)
+        )
+    :effect
+        (and
+           (difficulty med ?location)
+        )
+)
+
+(:action set_HardDifficulty
+    :parameters(?location -location ?obstacle1 -obstacle ?obstacle2 -obstacle ?obstacle3 -obstacle ?obstacle4 -obstacle)
+    :precondition
+        (and
+            (at key ?location)
+            (not (is ?obstacle1 ?obstacle2))
+            (not (is ?obstacle1 ?obstacle3))
+            (not (is ?obstacle1 ?obstacle4))
+            (not (is ?obstacle2 ?obstacle3))
+
+            (spawned ?obstacle1)
+            (spawned ?obstacle2)
+            (spawned ?obstacle3)
+            (spawned ?obstacle4)
+        )
+    :effect
+        (and
+           (difficulty hard ?location)
+        )
+)
+
+(:action set_Key
+    :parameters(?location -location)
+    :precondition
+        (and
+            (not(at key ?location))
+            (initialized ?location)
+        )
+    :effect
+        (and
+           (at key ?location)
+        )
+)
+
+
+(:action set_Door
+    :parameters(?location -location)
+    :precondition
+        (and
+            (not( at door ?location))
+            (initialized ?location)
+        )
+    :effect
+        (and
+           (at door ?location)
+        )
+)
+
+(:action set_Player
+    :parameters(?player -play ?door -element ?location -location)
+    :precondition
+        (and
+            (at door room1)
+            (initialized ?location)
+        )
+    :effect
+        (and
+         (playerSet player)
+        )
+)
+
+
 
 )
