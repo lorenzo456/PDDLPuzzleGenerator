@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ObjectTypes
+public class Door : MonoBehaviour
 {
-    Room, 
-    Element,
-    Character
+
 }

@@ -8,12 +8,13 @@ public class GameStateManager : MonoBehaviour
 {
     string url = "http://solver.planning.domains/solve";
     private string responseText = "";
-    public Queue plan = new Queue();
-    public List<string> planList = new List<string>();
+    GameManager gameManager;
+    
+
     void Start()
     {
+        gameManager = gameObject.GetComponent<GameManager>();
         StartCoroutine(PostRequest());
-        //ParseJson();
     }
 
     IEnumerator PostRequest()
@@ -38,6 +39,7 @@ public class GameStateManager : MonoBehaviour
             responseText = www.downloadHandler.text;
             //Debug.Log(responseText);
             ParseJson(responseText);
+            gameManager.Initialize();
         }
         
     }
@@ -52,19 +54,22 @@ public class GameStateManager : MonoBehaviour
         {
             string parsedAction = jsonObject["result"]["plan"][i]["name"];
             parsedAction = parsedAction.Replace("(", string.Empty).Replace(")", string.Empty);
-            planList.Add(parsedAction);
+            string[] parameters = parsedAction.Split(' ');
+            Action tempAction = new Action();
+            for(int j = 0; j < parameters.Length; j++)
+            {
+                if(j == 0)
+                {
+                    tempAction.actionName = parameters[j];
+                }
+                else
+                {
+                    tempAction.actionParameters.Add(parameters[j]);
+                }
+            }
+            
+            gameManager.actionList.Add(tempAction);
         }
-    }
-
-    void DisplayPlan()
-    {
-        //for (int i = 0; i < plan.Count; i++)
-        //{
-        //    Debug.Log(plan.Peek());
-        //    plan.Dequeue();
-        //}
-
-        //foreach(string action in )
     }
 }
 

@@ -1,43 +1,22 @@
-;
-; Lab 4 - Problem file for Question 1
-;
-(define (problem problem1)
-  (:domain domain1)
+(define (problem problem0)
+(:objects
+    key1 door1 -element
+    ;rooms
+    room1 room2 room3 room4 room5 -location
+)
+(:init
+    (uninitialized door1)
+    (uninitialized key1)
+    
+    ;Initialize
+    (empty room1)
+    (empty room2)
+)
+(:goal
+(and
+          (not(uninitialized door1))
+          (not(uninitialized key1))
 
-  (:objects
-      a
-      b
-      c
-      d
-      e
-      f
-  )
-
-  (:init
-      (onTable a)
-      (onTable b)
-      (onTable c)
-      (onTable d)
-      (onTable e)
-      (onTable f)
-
-      (clear a)
-      (clear b)
-      (clear c)
-      (clear d)
-      (clear e)
-      (clear f)
-
-      (handEmpty)
-  )
-
-  (:goal
-      (and
-          (on a b)
-          (on b c)
-          (on c d)
-          (on d e)
-          (on e f)
-      )
-  )
+)
+)
 )

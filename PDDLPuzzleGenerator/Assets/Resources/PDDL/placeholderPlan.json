@@ -1,54 +1,118 @@
-{
-  "status": "ok",
-  "result": {
-    "output": " --- OK.\n Match tree built with 84 nodes.\n\nPDDL problem description loaded: \n\tDomain: DOMAIN1\n\tProblem: PROBLEM1\n\t#Actions: 84\n\t#Fluents: 55\nLandmarks found: 5\nStarting search with IW (time budget is 60 secs)...\nrel_plan size: 10\n#RP_fluents 11\nCaption\n{#goals, #UNnachieved,  #Achieved} -> IW(max_w)\n\n{5/5/0}:IW(1) -> [2][3]rel_plan size: 8\n#RP_fluents 9\n{5/4/1}:IW(1) -> [2][3]rel_plan size: 6\n#RP_fluents 7\n{5/3/2}:IW(1) -> [2][3]rel_plan size: 4\n#RP_fluents 5\n{5/2/3}:IW(1) -> [2][3]rel_plan size: 2\n#RP_fluents 3\n{5/1/4}:IW(1) -> [2][3]rel_plan size: 0\n#RP_fluents 0Plan found with cost: 10\nTotal time: -1.8999e-10\nNodes generated during search: 100\nNodes expanded during search: 20\nIW search completed\n",
-    "parse_status": "ok",
-    "type": "full",
-    "length": 10,
-    "plan": [
-      {
-        "action": "  (:action pickup_from_table\n    :parameters (e)\n    :precondition\n      (and\n        (handempty)\n        (ontable e)\n        (clear e)\n      )\n    :effect\n      (and\n        (not\n          (handempty)\n        )\n        (not\n          (ontable e)\n        )\n        (holding e)\n      )\n  )",
-        "name": "(pickup_from_table e)"
-      },
-      {
-        "action": "  (:action putdown_on_stack\n    :parameters (e f)\n    :precondition\n      (and\n        (holding e)\n        (clear f)\n      )\n    :effect\n      (and\n        (not\n          (holding e)\n        )\n        (not\n          (clear f)\n        )\n        (on e f)\n        (handempty)\n      )\n  )",
-        "name": "(putdown_on_stack e f)"
-      },
-      {
-        "action": "  (:action pickup_from_table\n    :parameters (d)\n    :precondition\n      (and\n        (handempty)\n        (ontable d)\n        (clear d)\n      )\n    :effect\n      (and\n        (not\n          (handempty)\n        )\n        (not\n          (ontable d)\n        )\n        (holding d)\n      )\n  )",
-        "name": "(pickup_from_table d)"
-      },
-      {
-        "action": "  (:action putdown_on_stack\n    :parameters (d e)\n    :precondition\n      (and\n        (holding d)\n        (clear e)\n      )\n    :effect\n      (and\n        (not\n          (holding d)\n        )\n        (not\n          (clear e)\n        )\n        (on d e)\n        (handempty)\n      )\n  )",
-        "name": "(putdown_on_stack d e)"
-      },
-      {
-        "action": "  (:action pickup_from_table\n    :parameters (c)\n    :precondition\n      (and\n        (handempty)\n        (ontable c)\n        (clear c)\n      )\n    :effect\n      (and\n        (not\n          (handempty)\n        )\n        (not\n          (ontable c)\n        )\n        (holding c)\n      )\n  )",
-        "name": "(pickup_from_table c)"
-      },
-      {
-        "action": "  (:action putdown_on_stack\n    :parameters (c d)\n    :precondition\n      (and\n        (holding c)\n        (clear d)\n      )\n    :effect\n      (and\n        (not\n          (holding c)\n        )\n        (not\n          (clear d)\n        )\n        (on c d)\n        (handempty)\n      )\n  )",
-        "name": "(putdown_on_stack c d)"
-      },
-      {
-        "action": "  (:action pickup_from_table\n    :parameters (b)\n    :precondition\n      (and\n        (handempty)\n        (ontable b)\n        (clear b)\n      )\n    :effect\n      (and\n        (not\n          (handempty)\n        )\n        (not\n          (ontable b)\n        )\n        (holding b)\n      )\n  )",
-        "name": "(pickup_from_table b)"
-      },
-      {
-        "action": "  (:action putdown_on_stack\n    :parameters (b c)\n    :precondition\n      (and\n        (holding b)\n        (clear c)\n      )\n    :effect\n      (and\n        (not\n          (holding b)\n        )\n        (not\n          (clear c)\n        )\n        (on b c)\n        (handempty)\n      )\n  )",
-        "name": "(putdown_on_stack b c)"
-      },
-      {
-        "action": "  (:action pickup_from_table\n    :parameters (a)\n    :precondition\n      (and\n        (handempty)\n        (ontable a)\n        (clear a)\n      )\n    :effect\n      (and\n        (not\n          (handempty)\n        )\n        (not\n          (ontable a)\n        )\n        (holding a)\n      )\n  )",
-        "name": "(pickup_from_table a)"
-      },
-      {
-        "action": "  (:action putdown_on_stack\n    :parameters (a b)\n    :precondition\n      (and\n        (holding a)\n        (clear b)\n      )\n    :effect\n      (and\n        (not\n          (holding a)\n        )\n        (not\n          (clear b)\n        )\n        (on a b)\n        (handempty)\n      )\n  )",
-        "name": "(putdown_on_stack a b)"
-      }
-    ],
-    "planPath": "/tmp/solver_planning_domains_tmp_4VnpgQ1vFy6Gy/plan",
-    "logPath": "/tmp/solver_planning_domains_tmp_4VnpgQ1vFy6Gy/log"
-  }
-}
+////////////// PROBLEM
 
+(define (problem problem0) (:objects key1 door1 -element ;rooms room1 room2 room3 room4 room5 -location ;obstacles jump shoot grab -Obstacle ) (:init (uninitialized door1) (uninitialized key1) (notDup jump grab) (notDup shoot jump) (notDup grab shoot) ;Initialize (empty room1) (empty room2) (empty room3) (empty room4) ) (:goal (and (not(uninitialized door1)) (not(uninitialized key1)) (easy room2) (mid room3) ) ) )
+
+
+/////////// DOMAIN
+
+
+(define (domain domain4)
+    (:requirements
+        :strips :equality :typing
+    )
+    (:predicates
+        (at ?e -element ?l -location)
+        (spawned ?obs -obstacle ?location -location)
+        (uninitialized ?e -element)
+        (used ?l -location)
+        (empty ?l -location)
+        (easy ?location -location)
+        (mid ?location -location)
+        (hard ?location -location)
+        (notDup ?obs1 -obstacle ?obs2 -obstacle)
+    )
+(:types element location obstacle)
+
+(:action add_element
+    :parameters
+        (?element1 ?element2 -element ?location -location)
+    :precondition
+        (and
+            (uninitialized ?element1)
+            (uninitialized ?element2)
+            (not(at ?element1 ?location))
+            (not(at ?element2 ?location))
+            (empty ?location)
+        )
+    :effect
+        (and
+            (at ?element1 ?location)
+            (not(uninitialized ?element1))
+            (not(empty ?location))
+        )
+)
+
+(:action add_Room
+    :parameters(?location -location)
+    :precondition
+        (and
+        (empty ?location)
+        )
+    :effect
+        (and
+           (not(empty ?location))
+        )
+)
+
+(:action add_obstacle
+    :parameters(?obs1 -obstacle ?location -location)
+    :precondition
+        (and
+        (not (at door1 ?location))
+        
+        )
+    :effect
+        (and
+            (spawned ?obs1 ?location)
+        )
+)
+
+
+(:action create_easyRoom
+    :parameters (?obs1 -obstacle ?obs2 -obstacle ?l -location)
+    :precondition
+        (and
+        (spawned ?obs1 ?l)
+        (spawned ?obs2 ?l)
+        (not (empty ?l))
+        )
+    :effect
+        (and
+            (easy ?l)    
+        )
+)
+
+(:action create_midRoom
+    :parameters (?obs1 -obstacle ?obs2 -obstacle ?obs3 -obstacle ?l -location)
+    :precondition
+        (and
+        (spawned ?obs1 ?l)
+        (spawned ?obs2 ?l)
+        (notDup ?obs1 ?obs2)
+        (spawned ?obs3 ?l)
+        (not (empty ?l))
+        )
+    :effect
+        (and
+            (mid ?l)    
+        )
+)
+
+(:action create_hardRoom
+    :parameters (?obs1 -obstacle ?obs2 -obstacle ?obs3 -obstacle ?l -location)
+    :precondition
+        (and
+        (notDup ?obs1 ?obs2)
+        (notDup ?obs2 ?obs3)
+        (spawned ?obs1 ?l)
+        (spawned ?obs2 ?l)
+        (spawned ?obs3 ?l)
+        (not (empty ?l))
+        )
+    :effect
+        (and
+            (hard ?l)    
+        )
+)
+
+)
