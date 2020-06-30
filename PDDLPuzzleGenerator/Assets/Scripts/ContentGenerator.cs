@@ -34,8 +34,14 @@ public class ContentGenerator : MonoBehaviour
                 }
                 else
                 {
-                    
-                    Instantiate(temp, GameObject.Find(parent + "(Clone)").GetComponent<Room>().elementPlacement.position, Quaternion.identity);
+                    if(subType == "Door")
+                    {
+                        Instantiate(temp, new Vector3(0,5,0), Quaternion.identity);
+                    }
+                    else
+                    {
+                        Instantiate(temp, GameObject.Find(parent + "(Clone)").GetComponent<Room>().elementPlacement.position, Quaternion.identity);
+                    }
                     return temp;
                 }
             }

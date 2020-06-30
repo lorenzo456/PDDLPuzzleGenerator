@@ -116,7 +116,7 @@
 )
 
 (:action set_Player
-    :parameters(?player -play ?door -element ?location -location)
+    :parameters(?location -location)
     :precondition
         (and
             (at door room1)
