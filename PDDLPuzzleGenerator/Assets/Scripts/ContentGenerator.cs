@@ -54,19 +54,21 @@ public class ContentGenerator : MonoBehaviour
         Vector3 direction = Vector3.zero;
         if (lastRoom)
         {
-
+            bool chosenDirection = false;
+                while (!chosenDirection) {
                 int randomDirection = Random.Range(0, 3);
-                if (randomDirection == 0 && lastRoom.north)
+                if (randomDirection == 0 && lastRoom.north && nextRoom.south)
                 {
                     direction = lastRoom.transform.position + new Vector3(
                         lastRoom.transform.position.x,
                         0,
                         lastRoom.transform.position.z + (lastRoom.units * 2));
-                        nextRoom.south = false;
-                        lastRoom.north = false;
+                    nextRoom.south = false;
+                    lastRoom.north = false;
+                    chosenDirection = true;
 
                 }
-                else if (randomDirection == 1 && lastRoom.east)
+                else if (randomDirection == 1 && lastRoom.east && nextRoom.west)
                 {
                     direction = lastRoom.transform.position + new Vector3(
                     lastRoom.transform.position.x + (lastRoom.units * 2),
@@ -74,8 +76,9 @@ public class ContentGenerator : MonoBehaviour
                     lastRoom.transform.position.z);
                     nextRoom.west = false;
                     lastRoom.east = false;
+                    chosenDirection = true;
                 }
-                else if (randomDirection == 2 && lastRoom.south)
+                else if (randomDirection == 2 && lastRoom.south && nextRoom.north)
                 {
                     direction = lastRoom.transform.position + new Vector3(
                     lastRoom.transform.position.x,
@@ -83,8 +86,9 @@ public class ContentGenerator : MonoBehaviour
                     lastRoom.transform.position.z - (lastRoom.units * 2));
                     nextRoom.north = false;
                     lastRoom.south = false;
+                    chosenDirection = true;
                 }
-                else if (randomDirection == 3 && lastRoom.west)
+                else if (randomDirection == 3 && lastRoom.west && nextRoom.east)
                 {
                     direction = lastRoom.transform.position + new Vector3(
                     lastRoom.transform.position.x + (lastRoom.units * 2),
@@ -92,7 +96,9 @@ public class ContentGenerator : MonoBehaviour
                     lastRoom.transform.position.z);
                     nextRoom.east = false;
                     lastRoom.west = false;
+                    chosenDirection = true;
                 }
+            }
             lastRoom.RemoveDoor();
             nextRoom.RemoveDoor();
         }

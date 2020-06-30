@@ -7,6 +7,10 @@ TagManager:
   - Door
   - Key
   - MasterDoor
+  - Death
+  - ShootCube
+  - pickup
+  - Platform
   layers:
   - Default
   - TransparentFX
