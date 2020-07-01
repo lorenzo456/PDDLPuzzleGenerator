@@ -72,21 +72,22 @@ public class ContentGenerator : MonoBehaviour
 
     public void CreateRandomObstacleOfType(string location, string type)
     {
-        Vector3 room = GameObject.Find(location + "(Clone)").GetComponent<Room>().GetRandomEmptyObst().transform.position;
+
+        Transform room = GameObject.Find(location + "(Clone)").GetComponent<Room>().GetRandomEmptyObst().transform;
         if (type == "jump")
         {
             GameObject temp = Resources.Load<GameObject>("Prefabs/Obsticals/Jump/" + "Jump" + Random.Range(0, 3));
-            Instantiate(temp, room, Quaternion.identity);
+            Instantiate(temp, room.position, room.rotation);
         }
         else if (type == "grab")
         {
             GameObject temp = Resources.Load<GameObject>("Prefabs/Obsticals/Grab/" + "Grab" + Random.Range(0, 3));
-            Instantiate(temp, room, Quaternion.identity);
+            Instantiate(temp, room.position, room.rotation);
         }
         else if (type == "shoot")
         {
             GameObject temp = Resources.Load<GameObject>("Prefabs/Obsticals/Shoot/" + "Shoot" + Random.Range(0, 3));
-            Instantiate(temp, room, Quaternion.identity);
+            Instantiate(temp, room.position + new Vector3(0,1.5f,0), room.rotation);
         }
     }
 
@@ -144,7 +145,7 @@ public class ContentGenerator : MonoBehaviour
 
                 if(i > 100)
                 {
-                    Debug.Log("FOUND ERRORR");
+                    Debug.Log("ENTER FAILSAFE");
                     chosenDirection = true;
                 }
             }
