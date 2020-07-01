@@ -5,11 +5,11 @@ using UnityEngine;
 public class ContentGenerator : MonoBehaviour
 {
     Room lastRoom;
-    public GameObject GetRandomObjectOfType(ObjectTypes objectType, string objectName,string subType = "", string parent = "")
+    public GameObject GetRandomObjectOfType(ObjectTypes objectType, string objectName, string subType = "", string parent = "")
     {
-        if(objectType == ObjectTypes.Room)
-        {            
-            GameObject temp = Resources.Load<GameObject>("Prefabs/Rooms/Area" + Random.Range(0, 3));
+        if (objectType == ObjectTypes.Room)
+        {
+            GameObject temp = Resources.Load<GameObject>("Prefabs/Areas/Area" + Random.Range(0, 3));
             temp.name = objectName;
             if (!temp)
             {
@@ -17,15 +17,15 @@ public class ContentGenerator : MonoBehaviour
             }
             else
             {
-                Instantiate(temp,ReturnDirectionOffset(temp.GetComponent<Room>()), Quaternion.identity);
-                temp.transform.position = new Vector3(temp.transform.position.x, 0,temp.transform.position.z);
+                Instantiate(temp, ReturnDirectionOffset(temp.GetComponent<Room>()), Quaternion.identity);
+                temp.transform.position = new Vector3(temp.transform.position.x, 0, temp.transform.position.z);
                 lastRoom = temp.GetComponent<Room>();
                 return temp;
             }
         }
-        if(objectType == ObjectTypes.Element)
+        if (objectType == ObjectTypes.Element)
         {
-            if(subType != "")
+            if (subType != "")
             {
                 GameObject temp = Resources.Load<GameObject>("Prefabs/Elements/" + subType);
                 if (!temp)
@@ -34,9 +34,9 @@ public class ContentGenerator : MonoBehaviour
                 }
                 else
                 {
-                    if(subType == "Door")
+                    if (subType == "Door")
                     {
-                        Instantiate(temp, new Vector3(0,5,0), Quaternion.identity);
+                        Instantiate(temp, new Vector3(0, 1, 0), Quaternion.identity);
                     }
                     else
                     {
@@ -49,14 +49,57 @@ public class ContentGenerator : MonoBehaviour
         return null;
     }
 
+    public void CreateEasyLocation(string location, string obst1, string obst2)
+    {
+        CreateRandomObstacleOfType(location, obst1);
+        CreateRandomObstacleOfType(location, obst2);
+    }
+
+    public void CreateMedLocation(string location, string obst1, string obst2, string obst3)
+    {
+        CreateRandomObstacleOfType(location, obst1);
+        CreateRandomObstacleOfType(location, obst2);
+        CreateRandomObstacleOfType(location, obst3);
+    }
+
+    public void CreateHardLocation(string location, string obst1, string obst2, string obst3, string obst4)
+    {
+        CreateRandomObstacleOfType(location, obst1);
+        CreateRandomObstacleOfType(location, obst2);
+        CreateRandomObstacleOfType(location, obst3);
+        CreateRandomObstacleOfType(location, obst4);
+    }
+
+    public void CreateRandomObstacleOfType(string location, string type)
+    {
+        Vector3 room = GameObject.Find(location + "(Clone)").GetComponent<Room>().GetRandomEmptyObst().transform.position;
+        if (type == "jump")
+        {
+            GameObject temp = Resources.Load<GameObject>("Prefabs/Obsticals/Jump/" + "Jump" + Random.Range(0, 3));
+            Instantiate(temp, room, Quaternion.identity);
+        }
+        else if (type == "grab")
+        {
+            GameObject temp = Resources.Load<GameObject>("Prefabs/Obsticals/Grab/" + "Grab" + Random.Range(0, 3));
+            Instantiate(temp, room, Quaternion.identity);
+        }
+        else if (type == "shoot")
+        {
+            GameObject temp = Resources.Load<GameObject>("Prefabs/Obsticals/Shoot/" + "Shoot" + Random.Range(0, 3));
+            Instantiate(temp, room, Quaternion.identity);
+        }
+    }
+
     Vector3 ReturnDirectionOffset(Room nextRoom)
     {
+        int i = 0;
         Vector3 direction = Vector3.zero;
         if (lastRoom)
         {
             bool chosenDirection = false;
-                while (!chosenDirection) {
-                int randomDirection = Random.Range(0, 3);
+            while (!chosenDirection) {
+                i++;                
+                int randomDirection = Random.Range(0, 4);
                 if (randomDirection == 0 && lastRoom.north && nextRoom.south)
                 {
                     direction = lastRoom.transform.position + new Vector3(
@@ -96,6 +139,12 @@ public class ContentGenerator : MonoBehaviour
                     lastRoom.transform.position.z);
                     nextRoom.east = false;
                     lastRoom.west = false;
+                    chosenDirection = true;
+                }
+
+                if(i > 100)
+                {
+                    Debug.Log("FOUND ERRORR");
                     chosenDirection = true;
                 }
             }

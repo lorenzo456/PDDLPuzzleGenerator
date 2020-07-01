@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator create_obs(List<string> parameters)
+    IEnumerator create_obst(List<string> parameters)
     {
         string abilityName = parameters[0];
         Debug.Log("Enable PLAYER ability: " + abilityName);
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         string abilityType1 = parameters[1];
         string abilityType2 = parameters[2];
         string abilityType3 = parameters[3];
-
+        contentGenerator.CreateMedLocation(locationName, abilityType1, abilityType2, abilityType3);
         yield return null;
     }
 
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         string abilityType2 = parameters[2];
         string abilityType3 = parameters[3];
         string abilityType4 = parameters[4];
-
+        contentGenerator.CreateHardLocation(locationName, abilityType1, abilityType2, abilityType3, abilityType4);
         yield return null;
     }
 
@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
         string locationName = parameters[0];
         string abilityType1 = parameters[1];
         string abilityType2 = parameters[2];
+        contentGenerator.CreateEasyLocation(locationName, abilityType1, abilityType2);
         yield return null;
     }
 }
