@@ -1336,8 +1336,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba5ca6bf6b5cfb746ae33ac0abcc5a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obstWaypoints: []
+  obsPlacements: {fileID: 0}
   north: 1
-  east: 1
+  east: 0
   south: 1
   west: 1
   northDoor: {fileID: 5142877291167470075}

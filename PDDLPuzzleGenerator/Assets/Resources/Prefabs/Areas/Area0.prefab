@@ -444,17 +444,16 @@ MonoBehaviour:
   - {fileID: 5884545775785153843}
   - {fileID: 5884545775827799659}
   obsPlacements: {fileID: 5884545777450629680}
-  north: 0
-  east: 1
-  south: 0
-  west: 0
+  north: 1
+  east: 0
+  south: 1
+  west: 1
   northDoor: {fileID: 238499702263520190}
   eastDoor: {fileID: 2687658261727295228}
   southDoor: {fileID: 1029782567585222662}
   westDoor: {fileID: 3909179327599727487}
   units: 20
   elementPlacement: {fileID: 341599177378501927}
-  currentObs: 0
 --- !u!1 &2566410762409938345
 GameObject:
   m_ObjectHideFlags: 0

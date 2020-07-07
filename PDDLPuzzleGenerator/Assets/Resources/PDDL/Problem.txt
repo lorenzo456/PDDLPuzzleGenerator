@@ -23,6 +23,8 @@
           ;(at door room1)
           (playerSet player)
           (difficulty easy room2)
+          ;(difficulty med room4)
+          ;(difficulty easy room5)
           (difficulty hard room3)
 )
 )

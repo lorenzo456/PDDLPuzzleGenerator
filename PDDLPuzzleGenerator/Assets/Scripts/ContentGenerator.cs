@@ -5,6 +5,8 @@ using UnityEngine;
 public class ContentGenerator : MonoBehaviour
 {
     Room lastRoom;
+    bool first;
+    bool north, west, east, south;
     public GameObject GetRandomObjectOfType(ObjectTypes objectType, string objectName, string subType = "", string parent = "")
     {
         if (objectType == ObjectTypes.Room)
@@ -17,9 +19,13 @@ public class ContentGenerator : MonoBehaviour
             }
             else
             {
-                Instantiate(temp, ReturnDirectionOffset(temp.GetComponent<Room>()), Quaternion.identity);
+                Instantiate(temp, ReturnDirectionOffset2(temp.GetComponent<Room>()), Quaternion.identity);
                 temp.transform.position = new Vector3(temp.transform.position.x, 0, temp.transform.position.z);
-                lastRoom = temp.GetComponent<Room>();
+                if(first == false)
+                {
+                    lastRoom = GameObject.Find("room1(Clone)").GetComponent<Room>(); 
+                    first = true;
+                }
                 return temp;
             }
         }
@@ -89,6 +95,110 @@ public class ContentGenerator : MonoBehaviour
             GameObject temp = Resources.Load<GameObject>("Prefabs/Obsticals/Shoot/" + "Shoot" + Random.Range(0, 3));
             Instantiate(temp, room.position + new Vector3(0,1.5f,0), room.rotation);
         }
+    }
+
+    Vector3 ReturnDirectionOffset2(Room nextRoom)
+    {
+
+        Vector3 direction = Vector3.zero;
+        if(first == false)
+        {
+            return Vector3.zero;
+        }
+
+        if (lastRoom.north && nextRoom.south)
+        {
+            direction = lastRoom.transform.position + new Vector3(
+                lastRoom.transform.position.x,
+                0,
+                lastRoom.transform.position.z + (lastRoom.units * 2));
+            nextRoom.south = false;
+            lastRoom.north = false;
+            north = true;
+            return direction;
+
+        }
+        else if (lastRoom.east && nextRoom.west)
+        {
+            direction = lastRoom.transform.position + new Vector3(
+            lastRoom.transform.position.x - (lastRoom.units * 2),
+            0,
+            lastRoom.transform.position.z);
+            nextRoom.west = false;
+            lastRoom.east = false;
+            east = true;
+            return direction;
+
+        }
+        else if (lastRoom.south && nextRoom.north)
+        {
+            direction = lastRoom.transform.position + new Vector3(
+            lastRoom.transform.position.x,
+            0,
+            lastRoom.transform.position.z - (lastRoom.units * 2));
+            nextRoom.north = false;
+            lastRoom.south = false;
+            south = true;
+            return direction;
+
+        }
+        else if (lastRoom.west && nextRoom.east)
+        {
+            direction = lastRoom.transform.position + new Vector3(
+            lastRoom.transform.position.x + (lastRoom.units * 2),
+            0,
+            lastRoom.transform.position.z);
+            nextRoom.east = false;
+            lastRoom.west = false;
+            west = true;
+            return direction;
+
+        }
+
+        if (!east)
+        {
+            direction = lastRoom.transform.position + new Vector3(
+           lastRoom.transform.position.x - (lastRoom.units * 2),
+           0,
+           lastRoom.transform.position.z);
+            nextRoom.west = false;
+            lastRoom.east = false;
+            east = true;
+            return direction;
+        }else if (!west)
+        {
+            direction = lastRoom.transform.position + new Vector3(
+            lastRoom.transform.position.x + (lastRoom.units * 2),
+            0,
+            lastRoom.transform.position.z);
+            nextRoom.east = false;
+            lastRoom.west = false;
+            return direction;
+        }
+        else if(!north)
+        {
+            direction = lastRoom.transform.position + new Vector3(
+    lastRoom.transform.position.x,
+    0,
+    lastRoom.transform.position.z + (lastRoom.units * 2));
+            nextRoom.south = false;
+            lastRoom.north = false;
+            north = true;
+            return direction;
+        }else if (!south)
+        {
+            direction = lastRoom.transform.position + new Vector3(
+           lastRoom.transform.position.x,
+           0,
+           lastRoom.transform.position.z - (lastRoom.units * 2));
+            nextRoom.north = false;
+            lastRoom.south = false;
+            south = true;
+            return direction;
+        }
+        Debug.Log("NONE OF THE ABOVE");
+        return direction;
+
     }
 
     Vector3 ReturnDirectionOffset(Room nextRoom)
