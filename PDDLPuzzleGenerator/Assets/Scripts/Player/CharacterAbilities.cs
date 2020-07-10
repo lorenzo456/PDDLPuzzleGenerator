@@ -9,7 +9,8 @@ public class CharacterAbilities : MonoBehaviour
     public bool dead;
     public bool canShoot = true;
     public bool canGrab = true;
-
+    public bool canJump = true;
+    
     private void Start()
     {
         if (canShoot)
@@ -20,21 +21,30 @@ public class CharacterAbilities : MonoBehaviour
 
     private void Update()
     {
+        ////SHOOT CODE
+        //if (canShoot && Input.GetMouseButtonDown(0))
+        //{
+        //    RaycastHit hit;
+        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        //    if (Physics.Raycast(ray, out hit))
+        //    {
+        //        if (hit.transform.CompareTag("ShootCube"))
+        //        {
+        //            hit.transform.gameObject.GetComponent<ShootButton>().OnHit();
+        //        }
+        //    }
+        //}
+
+        //SHOOT CODE 2
         if (canShoot && Input.GetMouseButtonDown(0))
         {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.transform.CompareTag("ShootCube"))
-                {
-                    hit.transform.gameObject.GetComponent<ShootButton>().OnHit();
-                }
-            }
+            GameObject temp = Instantiate(Resources.Load<GameObject>("Prefabs/Abilities/ShootBall"), transform.position + transform.forward * 2 , Camera.main.transform.rotation);
+            temp.GetComponent<Rigidbody>().AddForce(temp.transform.forward * 500);
         }
 
-        if(canGrab && Input.GetKeyDown(KeyCode.E))
+        //Grab
+        if (canGrab && Input.GetKeyDown(KeyCode.E))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
