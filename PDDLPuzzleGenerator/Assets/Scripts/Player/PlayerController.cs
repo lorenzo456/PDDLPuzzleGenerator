@@ -23,13 +23,14 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask layer;
+    public bool canJump = true;
     //Private Character Settings
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded = false;
     private float gravity = -60.0f;
-
-
+    private float levelationDirection = 1;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -57,15 +58,16 @@ public class PlayerController : MonoBehaviour
     }
     private void PlayerMovement()
     {
-
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, layer);
-        
-
-
-        if (isGrounded && velocity.y < 0)
+        if (canJump)
         {
-            velocity.y = -2.0f;
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, layer);
+
+            if (isGrounded && velocity.y < 0)
+            {
+                velocity.y = -2.0f;
+            }
         }
+
 
         float playerH = Input.GetAxis("Horizontal");
         float playerV = Input.GetAxis("Vertical");
@@ -74,12 +76,36 @@ public class PlayerController : MonoBehaviour
 
         controller.Move(move * playerSpeed * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (canJump)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            //if (Input.GetButtonDown("Jump") && isGrounded)
+            //{
+            //    velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            //}
+
+            if (Input.GetButton("Jump"))
+            {
+                Debug.Log("JUMP");
+                Debug.Log(transform.position.y);
+                if(transform.position.y < 3)
+                {
+                    velocity.y = 2;
+                }
+                else
+                {
+                    velocity.y = 0;
+                }
+
+                levelationDirection = 0;
+            }
+            else
+            {
+                levelationDirection = 1;
+            }
+
         }
 
-        velocity.y += gravity * Time.deltaTime; 
+        velocity.y += gravity * Time.deltaTime * levelationDirection; 
         controller.Move(velocity * Time.deltaTime);
     }
 
